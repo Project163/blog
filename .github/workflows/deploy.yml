@@ -7,6 +7,9 @@ on:
   # 允许你从 Actions 选项卡手动运行此工作流
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 # 设置读取仓库内容的权限
 permissions:
   contents: read
