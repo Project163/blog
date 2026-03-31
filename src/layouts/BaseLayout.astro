@@ -1,0 +1,103 @@
+---
+// --- 1. 组件引入区 ---
+import BaseHead from "../components/BaseHead.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+// 接收各个页面传进来的 title 和 description 参数
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+    <head>
+        <BaseHead title={title} description={description} />
+    </head>
+    <body>
+        <div class="layout-wrapper">
+            <aside class="sidebar-container">
+                <Sidebar />
+            </aside>
+
+            <main class="main-content">
+                <Header />
+
+                <div class="content-slot">
+                    <slot />
+                </div>
+
+                <Footer />
+            </main>
+        </div>
+    </body>
+</html>
+
+<style is:global>
+    /* 定义全局颜色变量：深空青石主题 */
+    :root {
+        --bg-main: #0f172a; /* 深邃的主背景色 */
+        --bg-sidebar: #1e293b; /* 侧边栏稍浅，增加层级感 */
+        --text-primary: #f8fafc; /* 亮白色主文本 */
+        --text-muted: #94a3b8; /* 灰蓝色次级文本 */
+        --accent: #06b6d4; /* 青色作为强调色 (如链接 hover) */
+    }
+
+    body {
+        margin: 0;
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+    }
+
+    /* 核心双栏布局 */
+    .layout-wrapper {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    /* 左侧边栏样式 */
+    .sidebar-container {
+        width: 300px;
+        background-color: var(--bg-sidebar);
+        /* 吸顶效果：滚动右侧内容时，左侧保持不动 */
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3); /* 右侧阴影，增加立体感 */
+    }
+
+    /* 右侧内容区样式 */
+    .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 限制文章内容的最佳阅读宽度 */
+    .content-slot {
+        padding: 2rem 4rem;
+        max-width: 860px;
+        margin: 0 auto;
+        width: 100%;
+        flex: 1;
+    }
+
+    /* 移动端响应式适配 */
+    @media (max-width: 768px) {
+        .layout-wrapper {
+            flex-direction: column;
+        }
+        .sidebar-container {
+            width: 100%;
+            height: auto;
+            position: relative;
+            box-shadow: none;
+            border-bottom: 1px solid #334155;
+        }
+        .content-slot {
+            padding: 1.5rem 1.5rem;
+        }
+    }
+</style>

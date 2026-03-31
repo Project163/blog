@@ -1,0 +1,149 @@
+---
+// --- 1. 组件脚本区 (Frontmatter) ---
+// Astro 独有的写法，这里的代码只在服务器端运行。
+
+// 引入 Astro 内置的 Image 组件，它会自动对图片进行压缩和格式优化（岛屿架构中的性能优化利器）
+import { Image } from "astro:assets";
+
+// 引入你的头像图片。
+// 【注意】请将你自己的正方形头像图片放入 src/assets/ 目录下，并修改这里的文件名！
+// 目前为了不报错，我先使用了你现有的占位图作为演示。
+import avatarImg from "../assets/17.jpg";
+---
+
+<div class="sidebar">
+    <div class="profile">
+        <Image
+            src={avatarImg}
+            alt="我的头像"
+            class="avatar"
+            width={160}
+            height={160}
+        />
+
+        <h1 class="name">唐巧</h1>
+
+        <p class="bio">
+            一个中年程序员，正在努力<br />学习做业务
+        </p>
+    </div>
+
+    <div class="social-links">
+        <a href="mailto:your@email.com" aria-label="Email" title="Email">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"
+                ><path
+                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                ></path></svg
+            >
+        </a>
+
+        <a
+            href="https://github.com/yourusername"
+            target="_blank"
+            aria-label="GitHub"
+            title="GitHub"
+        >
+            <svg viewBox="0 0 16 16" width="20" height="20" fill="currentColor"
+                ><path
+                    d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+                ></path></svg
+            >
+        </a>
+
+        <a href="/blog/rss.xml" target="_blank" aria-label="RSS" title="RSS">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"
+                ><path
+                    d="M4 11a9 9 0 0 1 9 9H9c0-2.76-2.24-5-5-5v-4zm0-7a16 16 0 0 1 16 16h-3a13 13 0 0 0-13-13V4zm1.5 13.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"
+                ></path></svg
+            >
+        </a>
+    </div>
+
+    <nav class="side-nav">
+        <a href="/blog/about">ABOUT ME</a>
+    </nav>
+</div>
+
+<style>
+    /* 侧边栏整体容器：采用深色主题还原参考图效果 */
+    .sidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* 元素水平居中 */
+        text-align: center;
+        padding: 3rem 1.5rem;
+        background-color: #1a1a1a; /* 深黑灰背景 */
+        color: #e0e0e0;
+        height: 100%;
+        border-radius: 12px; /* 柔和的外边框圆角 */
+    }
+
+    /* 头像样式 */
+    .avatar {
+        width: 140px;
+        height: 140px;
+        border-radius: 16px; /* 参考图是带圆角的正方形，如果想改成纯圆形可以设为 50% */
+        object-fit: cover; /* 保证图片不变形 */
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* 头像阴影增加立体感 */
+    }
+
+    /* 名字样式 */
+    .name {
+        font-size: 1.8rem;
+        margin: 0.5rem 0;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    /* 简介文字样式 */
+    .bio {
+        font-size: 0.95rem;
+        color: #888888; /* 稍暗的灰色，凸显层次 */
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    /* 社交图标容器：使用 flex 控制图标间距 */
+    .social-links {
+        display: flex;
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+    }
+
+    /* 社交图标本身样式 */
+    .social-links a {
+        color: #888888;
+        transition:
+            color 0.2s ease,
+            transform 0.2s ease; /* 添加悬浮平滑过渡动画 */
+    }
+
+    /* 鼠标悬浮时图标变白并微微放大 */
+    .social-links a:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+    }
+
+    /* 侧边底部导航栏区域 */
+    .side-nav {
+        margin-top: auto; /* 非常实用的小技巧：利用 flex 的 auto margin 将导航推到侧边栏最底部 */
+        width: 100%;
+        border-top: 1px solid #333; /* 顶部分割线 */
+        padding-top: 1.5rem;
+        text-align: left; /* 参考图中靠左对齐 */
+    }
+
+    .side-nav a {
+        color: #888888;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: bold;
+        letter-spacing: 1px; /* 增加字母间距让英文看起来更高级 */
+        transition: color 0.2s;
+    }
+
+    .side-nav a:hover {
+        color: #ffffff;
+    }
+</style>
