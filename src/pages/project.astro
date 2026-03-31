@@ -1,0 +1,201 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// 模拟的项目数据。
+// 提示：未来如果项目变多，你也可以像写博客一样，把它们抽离成 Markdown 或 JSON 集合。
+const projects = [
+    {
+        title: "个人数字花园",
+        tags: ["Astro", "Web"],
+        shortDesc: "基于 Astro 搭建的高性能静态博客。",
+        fullDesc:
+            "采用岛屿架构与双栏深色响应式设计，包含文章搜索、标签筛选及平滑的毛玻璃过渡动画。",
+        link: "https://github.com/Project163/blog",
+        icon: "🪐",
+    },
+    // {
+    //     title: "终端天气查询",
+    //     tags: ["Python", "CLI"],
+    //     shortDesc: "一个可以在命令行查看天气的极简工具。",
+    //     fullDesc:
+    //         "调用公开天气 API，支持多城市缓存，使用丰富的 ANSI 颜色在终端中绘制天气图标。",
+    //     link: "#",
+    //     icon: "⛅",
+    // },
+    // {
+    //     title: "React 任务看板",
+    //     tags: ["React", "CSS"],
+    //     shortDesc: "支持拖拽的精美看板应用。",
+    //     fullDesc:
+    //         "基于 React Beautiful Dnd 开发，实现任务卡片的平滑拖拽排序，支持暗黑模式无缝切换。",
+    //     link: "#",
+    //     icon: "📋",
+    // },
+    // {
+    //     title: "服务器探针",
+    //     tags: ["Go", "Linux"],
+    //     shortDesc: "轻量级的服务器状态监控脚本。",
+    //     fullDesc:
+    //         "实时监控 CPU、内存和网络吞吐量，内存占用极低，支持通过 Telegram 机器人发送预警推送。",
+    //     link: "#",
+    //     icon: "🚀",
+    // },
+];
+---
+
+<BaseLayout title="我的项目" description="我参与或主导的开源项目与个人作品">
+    <div class="project-header">
+        <h1>💡 个人项目库</h1>
+    </div>
+
+    <div class="projects-grid">
+        {
+            projects.map((project) => (
+                <a href={project.link} target="_blank" class="project-card">
+                    <div class="card-top">
+                        <div class="card-icon">{project.icon}</div>
+                        <h2 class="card-title">{project.title}</h2>
+                        <div class="card-tags">
+                            {project.tags.map((tag) => (
+                                <span class="tag">{tag}</span>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div class="card-bottom">
+                        <p class="short-desc">{project.shortDesc}</p>
+
+                        <div class="full-desc-wrapper">
+                            <p class="full-desc">{project.fullDesc}</p>
+                            <span class="view-more">查看源码 &rarr;</span>
+                        </div>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
+</BaseLayout>
+
+<style>
+    /* 页面标题区 */
+    .project-header {
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+    .project-header h1 {
+        font-size: 2.5rem;
+        color: var(--text-primary);
+        margin-bottom: 1rem;
+    }
+    .project-header p {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+    }
+
+    /* * 核心网格布局：自动计算列数 
+   * minmax(280px, 1fr) 保证卡片最小 280px，在你的 800px 容器中刚好一行放下 2 到 3 个
+   */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+        padding-bottom: 4rem;
+    }
+
+    /* 卡片基础样式 */
+    .project-card {
+        display: flex;
+        flex-direction: column;
+        background: rgba(30, 41, 59, 0.5); /* 极深的蓝灰色背景 */
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: inherit;
+        position: relative;
+        overflow: hidden;
+        /* 核心动画过渡属性 */
+        transition:
+            transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            box-shadow 0.3s ease,
+            border-color 0.3s ease;
+    }
+
+    /* 💡 鼠标悬浮时的整体卡片变化：放大 + 阴影 + 边框高光 */
+    .project-card:hover {
+        transform: scale(1.05) translateY(-5px); /* 放大 1.05 倍并向上微微浮动 */
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* 增加底部阴影产生悬浮感 */
+        border-color: var(--accent); /* 边框变成青色 */
+        z-index: 10; /* 保证放大的卡片不会被其他卡片遮挡 */
+        background: rgba(30, 41, 59, 0.9);
+    }
+
+    /* 卡片内部元素排版 */
+    .card-top {
+        margin-bottom: 1rem;
+    }
+    .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .card-title {
+        font-size: 1.4rem;
+        margin: 0 0 0.8rem 0;
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+    .card-tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    .tag {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-muted);
+    }
+
+    /* 描述信息区域 */
+    .short-desc {
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* 💡 默认隐藏的详细描述容器 */
+    .full-desc-wrapper {
+        max-height: 0; /* 高度压缩为 0 */
+        opacity: 0; /* 透明度为 0 */
+        overflow: hidden; /* 隐藏超出部分 */
+        transition: all 0.4s ease; /* 动画过渡 */
+    }
+
+    .full-desc {
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        line-height: 1.6;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .view-more {
+        display: inline-block;
+        margin-top: 0.8rem;
+        font-size: 0.85rem;
+        color: var(--accent);
+        font-weight: bold;
+    }
+
+    /* 💡 鼠标悬浮时触发容器展开 */
+    .project-card:hover .full-desc-wrapper {
+        max-height: 200px; /* 给一个足够展开的固定值 */
+        opacity: 1;
+    }
+
+    /* 悬浮时隐藏短描述 (可选，我觉得保留短描述并在下方展开长描述视觉更好，如果想隐藏可以取消注释下面代码) */
+    /* .project-card:hover .short-desc { display: none; } */
+</style>

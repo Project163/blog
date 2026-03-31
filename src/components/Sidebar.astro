@@ -5,9 +5,6 @@
 // 引入 Astro 内置的 Image 组件，它会自动对图片进行压缩和格式优化（岛屿架构中的性能优化利器）
 import { Image } from "astro:assets";
 
-// 引入你的头像图片。
-// 【注意】请将你自己的正方形头像图片放入 src/assets/ 目录下，并修改这里的文件名！
-// 目前为了不报错，我先使用了你现有的占位图作为演示。
 import avatarImg from "../assets/17.jpg";
 ---
 
@@ -21,15 +18,16 @@ import avatarImg from "../assets/17.jpg";
             height={160}
         />
 
-        <h1 class="name">唐巧</h1>
+        <h1 class="name">Project163</h1>
 
         <p class="bio">
-            一个中年程序员，正在努力<br />学习做业务
+            A student currently pursuing a master's degree at BIT.
         </p>
+        <p class="bio">In some games or interweb, I'm also known as @M0uSes</p>
     </div>
 
     <div class="social-links">
-        <a href="mailto:your@email.com" aria-label="Email" title="Email">
+        <a href="mailto:z480648150@163.com" aria-label="Email" title="Email">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"
                 ><path
                     d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
@@ -38,7 +36,7 @@ import avatarImg from "../assets/17.jpg";
         </a>
 
         <a
-            href="https://github.com/yourusername"
+            href="https://github.com/Project163"
             target="_blank"
             aria-label="GitHub"
             title="GitHub"
@@ -102,6 +100,7 @@ import avatarImg from "../assets/17.jpg";
         color: #888888; /* 稍暗的灰色，凸显层次 */
         line-height: 1.6;
         margin-bottom: 2rem;
+        align-items: normal;
     }
 
     /* 社交图标容器：使用 flex 控制图标间距 */
